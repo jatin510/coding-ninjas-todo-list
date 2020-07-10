@@ -1,0 +1,98 @@
+<html>
+  <head>
+    <title>
+      <%= title %>
+    </title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body>
+    <!-- container flex -->
+    <div id="container">
+      <!-- div for creating task -->
+      <div>
+        <h1 id="page-heading">TODO APP</h1>
+
+        <!-- form for creating task -->
+        <form id="task-input" action="/create-task" method="POST">
+          <label for="description">TASK</label><br />
+
+          <!-- enter the description -->
+          <input
+            type="text"
+            name="description"
+            id="description"
+            placeholder="What do you need to do?"
+            required
+          />
+          <div class="horizontal-divider"></div>
+
+          <!-- select category -->
+          <label for="category">CATEGORY</label><br />
+          <select name="category" id="category">
+            <option value="" selected>Choose a category</option>
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="cleaning">Cleaning</option>
+            <option value="other">Other</option>
+          </select>
+          <div class="horizontal-divider"></div>
+
+          <!-- enter the due date of the task -->
+          <label for="date">DUE DATE</label><br />
+          <input type="date" name="date" id="date" required /><br />
+          <div class="horizontal-divider"></div>
+
+          <button type="submit" id="add-btn">
+            ADD TASK
+          </button>
+        </form>
+      </div>
+
+      <!-- div to show the tasks -->
+      <div>
+        <h3>&nbsp;</h3>
+        <h1 id="page-heading">TASK LIST</h1>
+
+        <!-- delete task form -->
+        <form method="POST" action="/delete-task" id="delete-form">
+          <!-- looping to show the tasks -->
+          <div id="task-list-container">
+            <% for (let i of task_list){%>
+            <div class="horizontal-divider"></div>
+            <div class="task">
+              <!-- task name and checkbox -->
+              <div class="checkbox">
+                <input type="checkbox" name="<%=i._id%>" /><%= i.task %>
+              </div>
+
+              <!-- task category -->
+              <div class="category">
+                Category : <span><%= i.category %></span>
+              </div>
+
+              <!-- task date  -->
+              <p><i class="fas fa-calendar-alt"></i> <%= i.date %></p>
+            </div>
+            <%}%>
+          </div>
+
+          <!-- delete task button -->
+          <button type="submit" id="delete-btn">
+            <i class="fas fa-trash"></i> DELETE TASKS
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
